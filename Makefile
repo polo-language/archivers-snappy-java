@@ -6,12 +6,10 @@
 # so build is repeatable and cluster-safe.
 
 PORTNAME=	snappy
-PORTVERSION=	1.0.4.1
+PORTVERSION=	1.1.7.3
 DISTVERSIONPREFIX=	snappy-java-
-PORTREVISION=	2
 CATEGORIES=	archivers java
-MASTER_SITES=	http://pkgs.fedoraproject.org/repo/pkgs/snappy/snappy-1.0.4.tar.gz/b69151652e82168bc5c643bcd6f07162/:source2 \
-		SF/bsdsrc/${.CURDIR:T}:source3
+#MASTER_SITES=	TODO:repo
 PKGNAMESUFFIX=	java
 DISTFILES+=	snappy-${PORTVERSION:R}.tar.gz:source2 \
 		FreeBSD-snappy-${PORTVERSION}-maven-repository.tar.gz:source3
@@ -30,8 +28,9 @@ BROKEN_powerpc64=	fails to build: failed to execute goal org.apache.maven.plugin
 BUILD_DEPENDS=	${LOCALBASE}/share/java/maven3/bin/mvn:devel/maven3
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	xerial
-GH_PROJECT=	snappy-java
+GH_ACCOUNT=	xerial:xerial google:google
+GH_PROJECT=	snappy-java:xerial snappy:google
+GH_TAGNAME=	${PORTVERSION}.${PORTREVISION}:xerial ${PORTVERSION}:google
 
 USES=		gmake
 USE_JAVA=	yes
