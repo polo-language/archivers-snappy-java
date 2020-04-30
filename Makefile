@@ -26,7 +26,7 @@ BUILD_DEPENDS=	${LOCALBASE}/share/java/maven3/bin/mvn:devel/maven3
 USES=		gmake
 USE_JAVA=	yes
 USE_LDCONFIG=	yes
-MAKE_ARGS+=	Default_CXX=${CXX}
+MAKE_ARGS+=	Default_CXX=${CXX} CXX="${CXX}" CXXFLAGS="${CXXFLAGS}"
 BITSHUFFLE_V=	0.3.2
 
 USE_GITHUB=	yes
