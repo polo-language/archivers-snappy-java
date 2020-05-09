@@ -9,8 +9,9 @@ PORTVERSION=	1.1.7.5
 CATEGORIES=	archivers java
 MASTER_SITES=	TODO:repo
 PKGNAMESUFFIX=	java
-EXTRACT_ONLY=	xerial-${PORTNAME}-${PKGNAMESUFFIX}-${PORTVERSION}_GH0${EXTRACT_SUFX} #\
-		# FreeBSD-snappy-${PORTVERSION}-maven-repository.tar.gz
+DISTFILES+=	${PORTNAME}-${PKGNAMESUFFIX}-repository-${PORTVERSION}${EXTRACT_SUFX}
+EXTRACT_ONLY=	xerial-${PORTNAME}-${PKGNAMESUFFIX}-${PORTVERSION}_GH0${EXTRACT_SUFX} \
+		${PORTNAME}-${PKGNAMESUFFIX}-repository-${PORTVERSION}${EXTRACT_SUFX}
 
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Fast compressor/decompressor library
@@ -22,6 +23,7 @@ BROKEN_armv7=		fails to build: maven-assembly-plugin: Failed to retrieve numeric
 BROKEN_powerpc64=	fails to build: failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.14.1:test
 
 BUILD_DEPENDS=	${LOCALBASE}/share/java/maven3/bin/mvn:devel/maven3
+BUILD_DEPENDS=	sbt:devel/sbt
 
 USES=		gmake
 USE_JAVA=	yes
@@ -47,18 +49,15 @@ post-extract:
 	@${CP} ${DISTDIR}/google-snappy-${PORTVERSION:R}_GH0${EXTRACT_SUFX} ${WRKSRC}/target/snappy-${PORTVERSION:R}${EXTRACT_SUFX}
 	@${CP} ${DISTDIR}/kiyo-masui-bitshuffle-${BITSHUFFLE_V}_GH0${EXTRACT_SUFX} ${WRKSRC}/target/bitshuffle-${BITSHUFFLE_V}${EXTRACT_SUFX}
 
-post-patch:
-	@${REINPLACE_CMD} -e 's|curl.*||g' ${WRKSRC}/Makefile
-	@${REINPLACE_CMD} -e 's|MVN:=mvn|MVN:=${LOCALBASE}/share/java/maven3/bin/mvn -Dmaven.repo.local=${WRKDIR}/repository --offline|g' ${WRKSRC}/Makefile
-
 do-build:
-	cd ${WRKSRC} && ${SETENV} JAVA_HOME=${JAVA_HOME} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} && \
-		${LOCALBASE}/share/java/maven3/bin/mvn -Dmaven.repo.local=${WRKDIR}/repository --offline test
+	cd ${WRKSRC} && ${SETENV} JAVA_HOME=${JAVA_HOME} ${MAKE_ENV} \
+		${MAKE_CMD} ${MAKE_ARGS} SBT_IVY_HOME=${WRKDIR}/repository MVN_CMD=${LOCALBASE}/share/java/maven3/bin/mvn MVN_REPO_LOCAL=${WRKDIR}/repository
+	# Move to test: cd ${WRKSRC} && ${LOCALBASE}/share/java/maven3/bin/mvn -Dmaven.repo.local=${WRKDIR}/repository --offline test
 
 do-install:
 	${INSTALL_DATA} ${WRKSRC}/target/snappy-java-${PORTVERSION}.jar \
 		${STAGEDIR}${JAVAJARDIR}/snappy-java.jar
-	${INSTALL_LIB} ${WRKSRC}/target/snappy-${PORTVERSION:R}-Default/libsnappyjava.so \
+	${INSTALL_LIB} ${WRKSRC}/target/snappy-${PORTVERSION:R}-FreeBSD-x86_64/libsnappyjava.so \
 		${STAGEDIR}${LOCALBASE}/lib
 
 .include <bsd.port.mk>
