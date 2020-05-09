@@ -22,7 +22,8 @@ BROKEN_armv6=		fails to build: maven-assembly-plugin: Failed to retrieve numeric
 BROKEN_armv7=		fails to build: maven-assembly-plugin: Failed to retrieve numeric file attributes
 BROKEN_powerpc64=	fails to build: failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.14.1:test
 
-BUILD_DEPENDS=	sbt:devel/sbt
+BUILD_DEPENDS=	cmake:devel/cmake \
+		sbt:devel/sbt
 
 USES=		gmake
 USE_JAVA=	yes
