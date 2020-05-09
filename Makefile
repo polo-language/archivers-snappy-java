@@ -29,6 +29,7 @@ USES=		gmake
 USE_JAVA=	yes
 USE_LDCONFIG=	yes
 MAKE_ARGS+=	CXX="${CXX}"
+TEST_TARGET=	test
 BITSHUFFLE_V=	0.3.2
 
 USE_GITHUB=	yes
@@ -52,7 +53,10 @@ post-extract:
 do-build:
 	cd ${WRKSRC} && ${SETENV} JAVA_HOME=${JAVA_HOME} ${MAKE_ENV} \
 		${MAKE_CMD} ${MAKE_ARGS} SBT_IVY_HOME=${WRKDIR}/repository MVN_CMD=${LOCALBASE}/share/java/maven3/bin/mvn MVN_REPO_LOCAL=${WRKDIR}/repository
-	# Move to test: cd ${WRKSRC} && ${LOCALBASE}/share/java/maven3/bin/mvn -Dmaven.repo.local=${WRKDIR}/repository --offline test
+
+do-test:
+	cd ${WRKSRC} && ${SETENV} JAVA_HOME=${JAVA_HOME} ${MAKE_ENV} \
+		${MAKE_CMD} ${MAKE_ARGS} SBT_IVY_HOME=${WRKDIR}/repository MVN_CMD=${LOCALBASE}/share/java/maven3/bin/mvn MVN_REPO_LOCAL=${WRKDIR}/repository test
 
 .include <bsd.port.pre.mk>
 
