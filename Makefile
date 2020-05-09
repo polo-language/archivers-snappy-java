@@ -54,10 +54,18 @@ do-build:
 		${MAKE_CMD} ${MAKE_ARGS} SBT_IVY_HOME=${WRKDIR}/repository MVN_CMD=${LOCALBASE}/share/java/maven3/bin/mvn MVN_REPO_LOCAL=${WRKDIR}/repository
 	# Move to test: cd ${WRKSRC} && ${LOCALBASE}/share/java/maven3/bin/mvn -Dmaven.repo.local=${WRKDIR}/repository --offline test
 
+.include <bsd.port.pre.mk>
+
+.if ${OPSYS} == FreeBSD && ${ARCH} == amd64
+PLATFORM_DIR_SUFFIX=	FreeBSD-x86_64
+.else
+PLATFORM_DIR_SUFFIX=	Default
+.endif
+
 do-install:
 	${INSTALL_DATA} ${WRKSRC}/target/snappy-java-${PORTVERSION}.jar \
 		${STAGEDIR}${JAVAJARDIR}/snappy-java.jar
-	${INSTALL_LIB} ${WRKSRC}/target/snappy-${PORTVERSION:R}-FreeBSD-x86_64/libsnappyjava.so \
+	${INSTALL_LIB} ${WRKSRC}/target/snappy-${PORTVERSION:R}-${PLATFORM_DIR_SUFFIX}/libsnappyjava.so \
 		${STAGEDIR}${LOCALBASE}/lib
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>
