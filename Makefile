@@ -5,7 +5,7 @@
 # so build is repeatable and cluster-safe.
 
 PORTNAME=	snappy
-PORTVERSION=	1.1.7.3
+PORTVERSION=	1.1.7.5
 CATEGORIES=	archivers java
 MASTER_SITES=	TODO:repo
 PKGNAMESUFFIX=	java
