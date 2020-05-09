@@ -9,7 +9,7 @@ PORTVERSION=	1.1.7.5
 CATEGORIES=	archivers java
 MASTER_SITES=	TODO:repo
 PKGNAMESUFFIX=	java
-DISTFILES+=	${PORTNAME}-${PKGNAMESUFFIX}-repository-${PORTVERSION}${EXTRACT_SUFX}
+DISTFILES+=	${PORTNAME}-${PKGNAMESUFFIX}-repository-${PORTVERSION}${EXTRACT_SUFX}:repo
 EXTRACT_ONLY=	xerial-${PORTNAME}-${PKGNAMESUFFIX}-${PORTVERSION}_GH0${EXTRACT_SUFX} \
 		${PORTNAME}-${PKGNAMESUFFIX}-repository-${PORTVERSION}${EXTRACT_SUFX}
 
@@ -22,7 +22,6 @@ BROKEN_armv6=		fails to build: maven-assembly-plugin: Failed to retrieve numeric
 BROKEN_armv7=		fails to build: maven-assembly-plugin: Failed to retrieve numeric file attributes
 BROKEN_powerpc64=	fails to build: failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.14.1:test
 
-BUILD_DEPENDS=	${LOCALBASE}/share/java/maven3/bin/mvn:devel/maven3
 BUILD_DEPENDS=	sbt:devel/sbt
 
 USES=		gmake
@@ -52,11 +51,11 @@ post-extract:
 
 do-build:
 	cd ${WRKSRC} && ${SETENV} JAVA_HOME=${JAVA_HOME} ${MAKE_ENV} \
-		${MAKE_CMD} ${MAKE_ARGS} SBT_IVY_HOME=${WRKDIR}/repository MVN_CMD=${LOCALBASE}/share/java/maven3/bin/mvn MVN_REPO_LOCAL=${WRKDIR}/repository
+		${MAKE_CMD} ${MAKE_ARGS} SBT_IVY_HOME=${WRKDIR}/repository
 
 do-test:
 	cd ${WRKSRC} && ${SETENV} JAVA_HOME=${JAVA_HOME} ${MAKE_ENV} \
-		${MAKE_CMD} ${MAKE_ARGS} SBT_IVY_HOME=${WRKDIR}/repository MVN_CMD=${LOCALBASE}/share/java/maven3/bin/mvn MVN_REPO_LOCAL=${WRKDIR}/repository test
+		${MAKE_CMD} ${MAKE_ARGS} SBT_IVY_HOME=${WRKDIR}/repository test
 
 .include <bsd.port.pre.mk>
 
