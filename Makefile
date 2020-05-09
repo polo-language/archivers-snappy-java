@@ -26,7 +26,7 @@ BUILD_DEPENDS=	${LOCALBASE}/share/java/maven3/bin/mvn:devel/maven3
 USES=		gmake
 USE_JAVA=	yes
 USE_LDCONFIG=	yes
-MAKE_ARGS+=	Default_CXX=${CXX} CXX="${CXX}" CXXFLAGS="${CXXFLAGS}"
+MAKE_ARGS+=	CXX="${CXX}"
 BITSHUFFLE_V=	0.3.2
 
 USE_GITHUB=	yes
@@ -42,16 +42,18 @@ GH_TAGNAME=	${PORTVERSION} \
 
 PLIST_FILES=	${JAVAJARDIR}/snappy-java.jar lib/libsnappyjava.so
 
+post-extract:
+	@${MKDIR} ${WRKSRC}/target
+	@${CP} ${DISTDIR}/google-snappy-${PORTVERSION:R}_GH0${EXTRACT_SUFX} ${WRKSRC}/target/snappy-${PORTVERSION:R}${EXTRACT_SUFX}
+	@${CP} ${DISTDIR}/kiyo-masui-bitshuffle-${BITSHUFFLE_V}_GH0${EXTRACT_SUFX} ${WRKSRC}/target/bitshuffle-${BITSHUFFLE_V}${EXTRACT_SUFX}
+
 post-patch:
 	@${REINPLACE_CMD} -e 's|curl.*||g' ${WRKSRC}/Makefile
 	@${REINPLACE_CMD} -e 's|MVN:=mvn|MVN:=${LOCALBASE}/share/java/maven3/bin/mvn -Dmaven.repo.local=${WRKDIR}/repository --offline|g' ${WRKSRC}/Makefile
 
 do-build:
-	@${MKDIR} ${WRKSRC}/target
-	@${CP} ${DISTDIR}/google-snappy-${PORTVERSION:R}_GH0${EXTRACT_SUFX} ${WRKSRC}/target/snappy-${PORTVERSION:R}${EXTRACT_SUFX}
-	@${CP} ${DISTDIR}/kiyo-masui-bitshuffle-${BITSHUFFLE_V}_GH0${EXTRACT_SUFX} ${WRKSRC}/target/bitshuffle-${BITSHUFFLE_V}${EXTRACT_SUFX}
-	cd ${WRKSRC} && ${SETENV} JAVA_HOME=${JAVA_HOME} \
-	${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} && ${LOCALBASE}/share/java/maven3/bin/mvn -Dmaven.repo.local=${WRKDIR}/repository --offline test
+	cd ${WRKSRC} && ${SETENV} JAVA_HOME=${JAVA_HOME} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} && \
+		${LOCALBASE}/share/java/maven3/bin/mvn -Dmaven.repo.local=${WRKDIR}/repository --offline test
 
 do-install:
 	${INSTALL_DATA} ${WRKSRC}/target/snappy-java-${PORTVERSION}.jar \
