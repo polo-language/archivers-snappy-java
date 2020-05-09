@@ -5,7 +5,7 @@
  
  MVN:=mvn
 -SBT:=./sbt
-+SBT:=sbt -Dsbt.ivy.home=$(SBT_IVY_HOME) -Dsbt.offline=true -Dsbt.boot.directory=$(SBT_BOOT_DIR)
++SBT:=sbt -Dsbt.ivy.home=$(SBT_IVY_HOME) -Dsbt.offline=true -Dsbt.boot.directory=$(SBT_BOOT_DIR) -Dsbt.coursier=false -Dsbt.global.base=$(SBT_GLOBAL_DIR)
  
  all: snappy
  
