@@ -1,19 +1,19 @@
 # Created by: Radim Kolar <hsn@filez.com>
-# $FreeBSD: head/archivers/snappy-java/Makefile 518482 2019-11-26 21:46:12Z jkim $
+# $FreeBSD: head/archivers/snappy-java/Makefile 535224 2020-05-14 11:15:14Z pi $
 # Note to committers:
-# With each version update, a new maven repository must be created and distributed
-# so build is repeatable and cluster-safe.
+# With each version update, a new maven repository must be created
+# and distributed so build is repeatable and cluster-safe.
 
 PORTNAME=	snappy
 PORTVERSION=	1.1.7.5
 CATEGORIES=	archivers java
-MASTER_SITES=	TODO:repo
+MASTER_SITES=	LOCAL/pi:repo
 PKGNAMESUFFIX=	java
 DISTFILES+=	${PORTNAME}-${PKGNAMESUFFIX}-repository-${PORTVERSION}${EXTRACT_SUFX}:repo
 EXTRACT_ONLY=	xerial-${PORTNAME}-${PKGNAMESUFFIX}-${PORTVERSION}_GH0${EXTRACT_SUFX} \
 		${PORTNAME}-${PKGNAMESUFFIX}-repository-${PORTVERSION}${EXTRACT_SUFX}
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	language.devel@gmail.com
 COMMENT=	Fast compressor/decompressor library
 
 LICENSE=	APACHE20
