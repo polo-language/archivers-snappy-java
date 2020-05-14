@@ -61,8 +61,14 @@ do-test:
 
 .include <bsd.port.pre.mk>
 
-.if ${OPSYS} == FreeBSD && ${ARCH} == amd64
+.if ${OPSYS} == FreeBSD
+.	if ${ARCH} == amd64
 PLATFORM_DIR_SUFFIX=	FreeBSD-x86_64
+.	elif ${ARCH} == i386
+PLATFORM_DIR_SUFFIX=	FreeBSD-x86
+.	else
+PLATFORM_DIR_SUFFIX=	Default
+.	endif
 .else
 PLATFORM_DIR_SUFFIX=	Default
 .endif
