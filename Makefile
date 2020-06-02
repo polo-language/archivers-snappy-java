@@ -1,5 +1,5 @@
 # Created by: Radim Kolar <hsn@filez.com>
-# $FreeBSD: head/archivers/snappy-java/Makefile 535224 2020-05-14 11:15:14Z pi $
+# $FreeBSD: head/archivers/snappy-java/Makefile 536007 2020-05-20 15:49:37Z mat $
 # Note to committers:
 # With each version update, a new maven repository must be created
 # and distributed so build is repeatable and cluster-safe.
@@ -10,7 +10,7 @@ CATEGORIES=	archivers java
 MASTER_SITES=	LOCAL/pi:repo
 PKGNAMESUFFIX=	java
 DISTFILES+=	${PORTNAME}-${PKGNAMESUFFIX}-repository-${PORTVERSION}${EXTRACT_SUFX}:repo
-EXTRACT_ONLY=	xerial-${PORTNAME}-${PKGNAMESUFFIX}-${PORTVERSION}_GH0${EXTRACT_SUFX} \
+EXTRACT_ONLY=	${DISTFILE_DEFAULT} \
 		${PORTNAME}-${PKGNAMESUFFIX}-repository-${PORTVERSION}${EXTRACT_SUFX}
 
 MAINTAINER=	language.devel@gmail.com
@@ -48,8 +48,8 @@ PLIST_FILES=	${JAVAJARDIR}/snappy-java.jar lib/libsnappyjava.so
 post-extract:
 	@${MKDIR} ${WRKSRC}/target
 	@${RM} ${WRKSRC}/sbt
-	@${CP} ${DISTDIR}/google-snappy-${PORTVERSION:R}_GH0${EXTRACT_SUFX} ${WRKSRC}/target/snappy-${PORTVERSION:R}${EXTRACT_SUFX}
-	@${CP} ${DISTDIR}/kiyo-masui-bitshuffle-${BITSHUFFLE_V}_GH0${EXTRACT_SUFX} ${WRKSRC}/target/bitshuffle-${BITSHUFFLE_V}${EXTRACT_SUFX}
+	@${CP} ${DISTDIR}/${DISTFILE_google} ${WRKSRC}/target/snappy-${PORTVERSION:R}${EXTRACT_SUFX}
+	@${CP} ${DISTDIR}/${DISTFILE_masui} ${WRKSRC}/target/bitshuffle-${BITSHUFFLE_V}${EXTRACT_SUFX}
 
 do-build:
 	cd ${WRKSRC} && ${SETENV} JAVA_HOME=${JAVA_HOME} ${MAKE_ENV} \
