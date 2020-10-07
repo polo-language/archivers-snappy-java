@@ -1,5 +1,5 @@
 # Created by: Radim Kolar <hsn@filez.com>
-# $FreeBSD: head/archivers/snappy-java/Makefile 536007 2020-05-20 15:49:37Z mat $
+# $FreeBSD: head/archivers/snappy-java/Makefile 551613 2020-10-07 04:52:17Z linimon $
 # Note to committers:
 # With each version update, a new maven repository must be created
 # and distributed so build is repeatable and cluster-safe.
@@ -20,7 +20,6 @@ LICENSE=	APACHE20
 
 BROKEN_armv6=		fails to build: maven-assembly-plugin: Failed to retrieve numeric file attributes
 BROKEN_armv7=		fails to build: maven-assembly-plugin: Failed to retrieve numeric file attributes
-BROKEN_powerpc64=	fails to build: failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.14.1:test
 
 BUILD_DEPENDS=	cmake:devel/cmake \
 		sbt:devel/sbt
@@ -66,6 +65,8 @@ do-test:
 PLATFORM_DIR_SUFFIX=	FreeBSD-x86_64
 .	elif ${ARCH} == i386
 PLATFORM_DIR_SUFFIX=	FreeBSD-x86
+.	elif ${ARCH} == aarch64
+PLATFORM_DIR_SUFFIX=	FreeBSD-aarch64
 .	else
 PLATFORM_DIR_SUFFIX=	Default
 .	endif
