@@ -3,13 +3,13 @@
 # and distributed so build is repeatable and cluster-safe.
 
 PORTNAME=	snappy
-PORTVERSION=	1.1.7.5
+PORTVERSION=	1.1.9.1
 CATEGORIES=	archivers java
-MASTER_SITES=	LOCAL/pi:repo
+#MASTER_SITES=	LOCAL/pi:repo
 PKGNAMESUFFIX=	java
-DISTFILES+=	${PORTNAME}-${PKGNAMESUFFIX}-repository-${PORTVERSION}${EXTRACT_SUFX}:repo
-EXTRACT_ONLY=	${DISTFILE_DEFAULT} \
-		${PORTNAME}-${PKGNAMESUFFIX}-repository-${PORTVERSION}${EXTRACT_SUFX}
+#DISTFILES+=	${PORTNAME}-${PKGNAMESUFFIX}-repository-${PORTVERSION}${EXTRACT_SUFX}:repo
+EXTRACT_ONLY=	${DISTFILE_DEFAULT} #\
+		#${PORTNAME}-${PKGNAMESUFFIX}-repository-${PORTVERSION}${EXTRACT_SUFX}
 
 MAINTAINER=	language.devel@gmail.com
 COMMENT=	Fast compressor/decompressor library
@@ -28,7 +28,7 @@ USE_JAVA=	yes
 USE_LDCONFIG=	yes
 MAKE_ARGS+=	CXX="${CXX}"
 TEST_TARGET=	test
-BITSHUFFLE_V=	0.3.2
+BITSHUFFLE_V=	0.3.4
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	xerial \
@@ -37,7 +37,7 @@ GH_ACCOUNT=	xerial \
 GH_PROJECT=	snappy-java \
 		snappy:google \
 		bitshuffle:masui
-GH_TAGNAME=	${PORTVERSION} \
+GH_TAGNAME=	v${PORTVERSION} \
 		${PORTVERSION:R}:google \
 		${BITSHUFFLE_V}:masui
 
