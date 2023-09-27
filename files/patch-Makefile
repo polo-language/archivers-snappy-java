@@ -1,7 +1,7 @@
---- Makefile.orig	2020-05-06 17:26:51 UTC
+--- Makefile.orig	2023-09-27 15:17:20 UTC
 +++ Makefile
-@@ -2,7 +2,7 @@
- include Makefile.common
+@@ -4,7 +4,7 @@ include Makefile.common
+ $(info OS_NAME:$(OS_NAME), OS_ARCH:$(OS_ARCH))
  
  MVN:=mvn
 -SBT:=./sbt
@@ -9,7 +9,7 @@
  
  all: snappy
  
-@@ -25,7 +25,6 @@ BITSHUFFLE_UNPACKED:=$(TARGET)/bitshuffle-extracted.lo
+@@ -28,7 +28,6 @@ BITSHUFFLE_UNPACKED:=$(TARGET)/bitshuffle-extracted.lo
  
  $(BITSHUFFLE_ARCHIVE):
  	@mkdir -p $(@D)
@@ -17,7 +17,7 @@
  
  $(BITSHUFFLE_UNPACKED): $(BITSHUFFLE_ARCHIVE)
  	$(TAR) xvfz $< -C $(TARGET)
-@@ -65,26 +64,25 @@ endif
+@@ -68,27 +67,17 @@ endif
  
  $(SNAPPY_ARCHIVE):
  	@mkdir -p $(@D)
@@ -28,23 +28,17 @@
  	touch $@
  
 -$(SNAPPY_GIT_UNPACKED):
--	@mkdir -p $(SNAPPY_OUT)
++$(SNAPPY_CMAKE_CACHE): $(SNAPPY_UNPACKED)
+ 	@mkdir -p $(SNAPPY_OUT)
 -	rm -rf $(SNAPPY_SRC_DIR)
 -	@mkdir -p $(SNAPPY_SRC_DIR)
 -	git clone $(SNAPPY_GIT_REPO_URL) $(SNAPPY_SRC_DIR)
 -	git --git-dir=$(SNAPPY_SRC_DIR)/.git --work-tree=$(SNAPPY_SRC_DIR) checkout -b local/snappy-$(SNAPPY_VERSION) $(SNAPPY_GIT_REV)
+-	cd $(SNAPPY_SRC_DIR) && git submodule update --init
 -	touch $@
-+#$(SNAPPY_GIT_UNPACKED):
-+#	@mkdir -p $(SNAPPY_OUT)
-+#	rm -rf $(SNAPPY_SRC_DIR)
-+#	@mkdir -p $(SNAPPY_SRC_DIR)
-+#	git clone $(SNAPPY_GIT_REPO_URL) $(SNAPPY_SRC_DIR)
-+#	git --git-dir=$(SNAPPY_SRC_DIR)/.git --work-tree=$(SNAPPY_SRC_DIR) checkout -b local/snappy-$(SNAPPY_VERSION) $(SNAPPY_GIT_REV)
-+#	touch $@
- 
+-
 -$(SNAPPY_CMAKE_CACHE): $(SNAPPY_GIT_UNPACKED)
-+$(SNAPPY_CMAKE_CACHE): $(SNAPPY_UNPACKED)
- 	@mkdir -p $(SNAPPY_OUT)
+-	@mkdir -p $(SNAPPY_OUT)
  	cd $(SNAPPY_OUT) && cmake $(SNAPPY_CMAKE_OPTS) ../../$(SNAPPY_SRC_DIR)
  	touch $@
  
@@ -53,7 +47,7 @@
  
  snappy-header: $(SNAPPY_CMAKE_CACHE)
  
-@@ -100,7 +98,7 @@ $(TARGET)/jni-classes/org/xerial/snappy/BitShuffleNati
+@@ -104,7 +93,7 @@ $(TARGET)/jni-classes/org/xerial/snappy/BitShuffleNati
  
  $(SRC)/org/xerial/snappy/BitShuffleNative.h: $(TARGET)/jni-classes/org/xerial/snappy/BitShuffleNative.class
  
