@@ -3,7 +3,7 @@
 # and distributed so build is repeatable and cluster-safe.
 
 PORTNAME=	snappy
-PORTVERSION=	1.1.10.4
+PORTVERSION=	1.1.10.5
 CATEGORIES=	archivers java
 #MASTER_SITES=	LOCAL/pi:repo
 PKGNAMESUFFIX=	java
