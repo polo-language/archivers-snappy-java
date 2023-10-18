@@ -1,7 +1,11 @@
-TIMESTAMP = 1695829040
+TIMESTAMP = 1696821423
 SHA256 (xerial-snappy-java-1.1.10.5-v1.1.10.5_GH0.tar.gz) = dcec78c80eab4cd2841cb70f924cb1b9344d94481e84c45adbb5cb8cfc1c372f
 SIZE (xerial-snappy-java-1.1.10.5-v1.1.10.5_GH0.tar.gz) = 3917442
 SHA256 (google-snappy-1.1.10_GH0.tar.gz) = 49d831bffcc5f3d01482340fe5af59852ca2fe76c3e05df0e67203ebbe0f1d90
 SIZE (google-snappy-1.1.10_GH0.tar.gz) = 1105312
 SHA256 (kiyo-masui-bitshuffle-0.3.4_GH0.tar.gz) = 275a5f329b9eba2e4e7a540e8a4211f01a919a59f2b428299da680c7f0a15c3e
 SIZE (kiyo-masui-bitshuffle-0.3.4_GH0.tar.gz) = 110150
+SHA256 (google-googletest-v1.14.0_GH0.tar.gz) = 8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7
+SIZE (google-googletest-v1.14.0_GH0.tar.gz) = 867764
+SHA256 (google-benchmark-v1.8.3_GH0.tar.gz) = 6bc180a57d23d4d9515519f92b0c83d61b05b5bab188961f36ac7b06b0d9e9ce
+SIZE (google-benchmark-v1.8.3_GH0.tar.gz) = 250206

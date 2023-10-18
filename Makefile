@@ -8,7 +8,9 @@ CATEGORIES=	archivers java
 #MASTER_SITES=	LOCAL/pi:repo
 PKGNAMESUFFIX=	java
 #DISTFILES+=	${PORTNAME}-${PKGNAMESUFFIX}-repository-${PORTVERSION}${EXTRACT_SUFX}:repo
-EXTRACT_ONLY=	${DISTFILE_DEFAULT} #\
+EXTRACT_ONLY=	${DISTFILE_DEFAULT} \
+		${DISTFILE_googletest} \
+		${DISTFILE_benchmark}
 		#${PORTNAME}-${PKGNAMESUFFIX}-repository-${PORTVERSION}${EXTRACT_SUFX}
 
 MAINTAINER=	language.devel@gmail.com
@@ -28,18 +30,29 @@ USE_JAVA=	yes
 USE_LDCONFIG=	yes
 MAKE_ARGS+=	CXX="${CXX}"
 TEST_TARGET=	test
+SNAPPY_V=	${PORTVERSION:R}
 BITSHUFFLE_V=	0.3.4
+GOOGLETEST_V=	1.14.0
+BENCHMARK_V=	1.8.3
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	xerial \
 		google:google \
-		kiyo-masui:masui
+		kiyo-masui:masui \
+		google:googletest \
+		google:benchmark
 GH_PROJECT=	snappy-java \
 		snappy:google \
-		bitshuffle:masui
+		bitshuffle:masui \
+		googletest:googletest \
+		benchmark:benchmark
 GH_TAGNAME=	v${PORTVERSION} \
 		${PORTVERSION:R}:google \
-		${BITSHUFFLE_V}:masui
+		${BITSHUFFLE_V}:masui \
+		v${GOOGLETEST_V}:googletest \
+		v${BENCHMARK_V}:benchmark
+GH_SUBDIR=	/target/snappy-${SNAPPY_V}/third_party/googletest:googletest \
+		/target/snappy-${SNAPPY_V}/third_party/benchmark:benchmark
 
 PLIST_FILES=	${JAVAJARDIR}/snappy-java.jar lib/libsnappyjava.so
 
