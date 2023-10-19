@@ -1,6 +1,21 @@
 --- Makefile.common.orig	2023-09-27 02:22:20 UTC
 +++ Makefile.common
-@@ -51,7 +51,7 @@ endif
+@@ -29,8 +29,13 @@ IBM_JDK_LIB := lib/inc_ibm
+ ifeq ($(OS_NAME),Mac)
+ ENDIANESS:="Little Endian"
+ else
+-ENDIANESS:=$(shell lscpu | grep "Byte Order" |cut -d ":" -f2)
++_btord:=$(shell sysctl -n hw.byteorder)
++ifeq ($(_btord),1234)
++ENDIANESS:="Little Endian"
++else
++ENDIANESS:="Big Endian"
+ endif
++endif
+ 
+ # Windows uses different path separators
+ ifeq ($(OS_NAME),Windows)
+@@ -51,7 +56,7 @@ endif
  # os=Default is meant to be generic unix/linux
  
  # To support new CPU architecture, add a new target name here
@@ -9,7 +24,7 @@
  os_arch := $(OS_NAME)-$(OS_ARCH)
  IBM_JDK_7 := $(findstring IBM, $(shell $(JAVA) -version 2>&1 | grep IBM | grep "JRE 1.7"))
  
-@@ -262,6 +262,34 @@ Mac-x86_64_CXXFLAGS  := -Ilib/inc_mac -I$(JAVA_HOME)/i
+@@ -262,6 +267,34 @@ Mac-x86_64_CXXFLAGS  := -Ilib/inc_mac -I$(JAVA_HOME)/i
  Mac-x86_64_LINKFLAGS := -dynamiclib
  Mac-x86_64_LIBNAME   := libsnappyjava.dylib
  Mac-x86_64_SNAPPY_FLAGS  :=
