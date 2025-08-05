@@ -1,6 +1,8 @@
-TIMESTAMP = 1745314810
-SHA256 (xerial-snappy-java-v1.1.10.7_GH0.tar.gz) = d8f194c3976206711606a18a39f7c658dc8d4807f2f270c4ca85d71ccfbc061f
-SIZE (xerial-snappy-java-v1.1.10.7_GH0.tar.gz) = 3953515
+TIMESTAMP = 1754379765
+SHA256 (xerial-snappy-java-v1.1.10.8_GH0.tar.gz) = 8bd5072fd984983a5709a8ea4b2e8a4457c4f16a134d3d912789d3007f7f1649
+SIZE (xerial-snappy-java-v1.1.10.8_GH0.tar.gz) = 4063792
+SHA256 (snappy-java-repository-1.1.10.8.tar.gz) = 2dbbda07d98c4b1c433c4bf0d73f1801beba39c9c65be87fc3c7165204ff3954
+SIZE (snappy-java-repository-1.1.10.8.tar.gz) = 246332012
 SHA256 (google-snappy-1.1.10_GH0.tar.gz) = 49d831bffcc5f3d01482340fe5af59852ca2fe76c3e05df0e67203ebbe0f1d90
 SIZE (google-snappy-1.1.10_GH0.tar.gz) = 1105312
 SHA256 (google-benchmark-d572f47_GH0.tar.gz) = 3ed2c88e1067c347031f77d5ea8b40e95a1cd4562badac361418160c23d6f000
